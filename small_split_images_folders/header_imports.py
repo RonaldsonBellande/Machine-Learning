@@ -5,3 +5,4 @@ from glob import glob
 import os
 from os.path import basename
 import sys
+from PIL import Image
