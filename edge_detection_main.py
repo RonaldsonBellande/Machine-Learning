@@ -1,3 +1,4 @@
+from header_imports import *
 from edge_detection import *
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
-from header_inputs import *
+from header_imports import *
 
-class brain_cancer_building(object):
+class computer_vision_building(object):
 
-    def __init__(self, model_type):
+    def __init__(self, model_type, image_type):
 
 
         self.images = []
@@ -10,13 +10,24 @@ class brain_cancer_building(object):
         self.image_file = []
         # 0 for False and 1 for True for label name
         self.label_name = []
-        self.number_classes = number_classes
+        self.number_classes = 20
         self.image_size = 240
         self.path = "Data/"
-        self.true_path  = "brain_cancer_seperate/"
+        self.true_path  = "split_images_folders/"
+        self.image_type = image_type
+
+
+        # Determine
+        if self.image_type == "normal":
+            self.true_path = self.true_path + "vision_object/"
+        elif self.image_type == "edge_1":
+            self.true_path = self.true_path + "vision_object_edge_1/"
+        elif self.image_type == "edge_2":
+            self.true_path = self.true_path + "vision_object_edge_2/"
+            
         self.valid_images = [".jpg",".png"]
         self.input_shape = None
-        self.advanced_categories = ["False", "glioma_tumor", "meningioma_tumor", "pituitary_tumor"]
+        self.advanced_categories = ["aeroplane", "bicycle", "bird", "boat","bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog","horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
 
         # Split training data variables
         self.X_train = None
@@ -31,7 +42,6 @@ class brain_cancer_building(object):
         self.model_summary = "model_summary/"
 
         self.optimizer = keras.optimizers.Adam(lr=0.001, beta_1=0.9, beta_2=0.999)
-
         self.create_model_type = model_type
         
         # Check validity
@@ -39,14 +49,46 @@ class brain_cancer_building(object):
         self.check_valid(self.advanced_categories[1])
         self.check_valid(self.advanced_categories[2])
         self.check_valid(self.advanced_categories[3])
+        self.check_valid(self.advanced_categories[4])
+        self.check_valid(self.advanced_categories[5])
+        self.check_valid(self.advanced_categories[6])
+        self.check_valid(self.advanced_categories[7])
+        self.check_valid(self.advanced_categories[8])
+        self.check_valid(self.advanced_categories[9])
+        self.check_valid(self.advanced_categories[10])
+        self.check_valid(self.advanced_categories[11])
+        self.check_valid(self.advanced_categories[12])
+        self.check_valid(self.advanced_categories[13])
+        self.check_valid(self.advanced_categories[14])
+        self.check_valid(self.advanced_categories[15])
+        self.check_valid(self.advanced_categories[16])
+        self.check_valid(self.advanced_categories[17])
+        self.check_valid(self.advanced_categories[18])
+        self.check_valid(self.advanced_categories[19])
             
         # Resize image
         self.resize_image_and_label_image(self.advanced_categories[0])
         self.resize_image_and_label_image(self.advanced_categories[1])
         self.resize_image_and_label_image(self.advanced_categories[2])
         self.resize_image_and_label_image(self.advanced_categories[3])
+        self.resize_image_and_label_image(self.advanced_categories[4])
+        self.resize_image_and_label_image(self.advanced_categories[5])
+        self.resize_image_and_label_image(self.advanced_categories[6])
+        self.resize_image_and_label_image(self.advanced_categories[7])
+        self.resize_image_and_label_image(self.advanced_categories[8])
+        self.resize_image_and_label_image(self.advanced_categories[9])
+        self.resize_image_and_label_image(self.advanced_categories[10])
+        self.resize_image_and_label_image(self.advanced_categories[11])
+        self.resize_image_and_label_image(self.advanced_categories[12])
+        self.resize_image_and_label_image(self.advanced_categories[13])
+        self.resize_image_and_label_image(self.advanced_categories[14])
+        self.resize_image_and_label_image(self.advanced_categories[15])
+        self.resize_image_and_label_image(self.advanced_categories[16])
+        self.resize_image_and_label_image(self.advanced_categories[17])
+        self.resize_image_and_label_image(self.advanced_categories[18])
+        self.resize_image_and_label_image(self.advanced_categories[19])
 
-
+        
         # Numpy array
         self.image_file = np.array(self.image_file)
         self.label_name = np.array(self.label_name)
@@ -63,6 +105,8 @@ class brain_cancer_building(object):
 
         # Saving model summary
         self.save_model_summary()
+        
+        print("finished")
 
 
 
@@ -82,16 +126,46 @@ class brain_cancer_building(object):
             image_resized = cv2.resize(image_resized,(self.image_size, self.image_size), interpolation = cv2.INTER_AREA)
             self.image_file.append(image_resized)
 
-            if input_file == "False":
+            if input_file == "aeroplane":
                 self.label_name.append(0)
-            elif input_file == "True":
+            elif input_file == "bicycle":
                 self.label_name.append(1)
-            elif input_file == "glioma_tumor":
-                self.label_name.append(1)
-            elif input_file == "meningioma_tumor":
+            elif input_file == "bird":
                 self.label_name.append(2)
-            elif input_file == "pituitary_tumor":
+            elif input_file == "boat":
                 self.label_name.append(3)
+            elif input_file == "bottle":
+                self.label_name.append(4)
+            elif input_file == "bus":
+                self.label_name.append(5)
+            elif input_file == "car":
+                self.label_name.append(6)
+            elif input_file == "cat":
+                self.label_name.append(7)
+            elif input_file == "chair":
+                self.label_name.append(8)
+            elif input_file == "cow":
+                self.label_name.append(9)
+            elif input_file == "diningtable":
+                self.label_name.append(10)
+            elif input_file == "dog":
+                self.label_name.append(11)
+            elif input_file == "horse":
+                self.label_name.append(12)
+            elif input_file == "motorbike":
+                self.label_name.append(13)
+            elif input_file == "person":
+                self.label_name.append(14)
+            elif input_file == "pottedplant":
+                self.label_name.append(15)
+            elif input_file == "sheep":
+                self.label_name.append(16)
+            elif input_file == "sofa":
+                self.label_name.append(17)
+            elif input_file == "train":
+                self.label_name.append(18)
+            elif input_file == "tvmonitor":
+                self.label_name.append(19)
             else:
                 print("error")
 
@@ -167,14 +241,22 @@ class brain_cancer_building(object):
         self.model.add(Activation("relu"))
         self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
 
-        self.model.add(Conv2D(64, (3,3), input_shape = self.input_shape))
+        self.model.add(Conv2D(32, (7,7), input_shape = self.input_shape))
+        self.model.add(Activation("relu"))
+        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
+        
+        self.model.add(Conv2D(16, (7,7), input_shape = self.input_shape))
+        self.model.add(Activation("relu"))
+        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
+        
+        self.model.add(Conv2D(8, (7,7), input_shape = self.input_shape))
         self.model.add(Activation("relu"))
         self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
 
-        self.model.add(Flatten())
-        self.model.add(Dense(64))
+        self.model.add(Flatten())        
+        self.model.add(Dense(units = self.number_classes, activation = 'softmax', input_dim=2))
 
-        self.model.add(Dense(1))
+        self.model.add(Dense(units = self.number_classes, activation = 'softmax', input_dim=2))
         self.model.add(Activation('sigmoid'))
 
         # last layer, output Layer
