@@ -195,10 +195,7 @@ class computer_vision_building(object):
 
     def get_categories(self):
         # Number of categories
-        if self.number_classes == 2:
-            return self.categories
-        elif self.number_classes == 4:
-            return self.advanced_categories
+        return self.advanced_categories
 
 
     def create_models_1(self):
