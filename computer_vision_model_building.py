@@ -173,7 +173,7 @@ class computer_vision_building(object):
 
     # Split training data and testing Data and makes it random and normalized it
     def splitting_data_normalize(self):
-        self.X_train, self.X_test, self.Y_train_vec, self.Y_test_vec = train_test_split(self.image_file, self.label_name, test_size = 0.15, random_state = 42)
+        self.X_train, self.X_test, self.Y_train_vec, self.Y_test_vec = train_test_split(self.image_file, self.label_name, test_size = 0.10, random_state = 42)
 
         self.input_shape = self.X_train.shape[1:]
         
@@ -237,19 +237,21 @@ class computer_vision_building(object):
         self.model.add(Conv2D(filters=32, kernel_size=(3,3), activation="relu", input_shape = self.input_shape))
         self.model.add(Conv2D(filters=32, kernel_size=(3,3), activation="relu"))
 
-        self.model.add(MaxPool2D(pool_size=(2, 2)))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Dropout(rate=0.25))
 
         self.model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu"))
         self.model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu"))
 
-        self.model.add(MaxPool2D(pool_size=(2, 2)))
+        self.model.add(MaxPooling2D(pool_size=(2, 2)))
         self.model.add(Dropout(rate=0.25))
         self.model.add(Flatten())
 
         self.model.add(Dense(512, activation="relu"))
         self.model.add(Dropout(rate=0.5))
         self.model.add(Dense(units = self.number_classes, activation="softmax"))
+        
+        self.model.compile(loss = "binary_crossentropy", optimizer="adam", metrics=["accuracy"])
 	
         return self.model
 

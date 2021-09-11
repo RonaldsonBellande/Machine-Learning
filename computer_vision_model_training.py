@@ -46,7 +46,7 @@ class computer_vision_training(object):
 
         self.computer_vision_model = self.model.fit(self.X_train, self.Y_train,
                 batch_size=self.batch_size[2],
-                validation_split=0.15,
+                validation_split=0.10,
                 epochs=self.epochs[2],
                 callbacks=[self.callbacks],
                 shuffle=True)
