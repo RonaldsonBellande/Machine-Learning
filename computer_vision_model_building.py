@@ -234,34 +234,23 @@ class computer_vision_building(object):
 
         self.model = Sequential()
 
-        self.model.add(Conv2D(64, (7,7), input_shape = self.input_shape))
-        self.model.add(Activation("relu"))
-        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
+        self.model.add(Conv2D(filters=32, kernel_size=(3,3), activation="relu", input_shape = self.input_shape))
+        self.model.add(Conv2D(filters=32, kernel_size=(3,3), activation="relu"))
 
-        self.model.add(Conv2D(32, (7,7), input_shape = self.input_shape))
-        self.model.add(Activation("relu"))
-        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
-        
-        self.model.add(Conv2D(16, (7,7), input_shape = self.input_shape))
-        self.model.add(Activation("relu"))
-        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
-        
-        self.model.add(Conv2D(8, (7,7), input_shape = self.input_shape))
-        self.model.add(Activation("relu"))
-        self.model.add(MaxPooling2D(pool_size = (2,2))) # Pooling
+        self.model.add(MaxPool2D(pool_size=(2, 2)))
+        self.model.add(Dropout(rate=0.25))
 
-        self.model.add(Flatten())        
-        self.model.add(Dense(units = self.number_classes, activation = 'softmax', input_dim=2))
+        self.model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu"))
+        self.model.add(Conv2D(filters=64, kernel_size=(3, 3), activation="relu"))
 
-        self.model.add(Dense(units = self.number_classes, activation = 'softmax', input_dim=2))
-        self.model.add(Activation('sigmoid'))
-
-        # last layer, output Layer
+        self.model.add(MaxPool2D(pool_size=(2, 2)))
+        self.model.add(Dropout(rate=0.25))
         self.model.add(Flatten())
-        self.model.add(Dense(units = self.number_classes, activation = 'softmax', input_dim=2))
 
-        self.model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['accuracy'])
-
+        self.model.add(Dense(512, activation="relu"))
+        self.model.add(Dropout(rate=0.5))
+        self.model.add(Dense(units = self.number_classes, activation="softmax"))
+	
         return self.model
 
 
