@@ -23,6 +23,11 @@ class computer_vision_training(object):
         self.epochs = [1, 10, 20, 50, 100, 200]
         self.param_grid = dict(batch_size = self.batch_size, epochs = self.epochs)
         self.callbacks = keras.callbacks.EarlyStopping(monitor='val_acc', patience=4, verbose=1)
+
+        self.earlyStop = keras.callbacks.EarlyStopping(patience=2)
+        self.learining_rate_reduction = ReduceLROnPlateau(monitor='val_accuracy',patience=2,verbose=1,factor= 0.5,min_lr=0.00001)
+        
+        self.callbacks_2 = self.earlyStop, self.learining_rate_reduction
         
         # Model
         self.model_categories = computer_vision_building_obj.get_categories()
@@ -46,9 +51,15 @@ class computer_vision_training(object):
 
         self.computer_vision_model = self.model.fit(self.X_train, self.Y_train,
                 batch_size=self.batch_size[2],
+<<<<<<< Updated upstream
                 validation_split=0.10,
                 epochs=self.epochs[2],
                 callbacks=[self.callbacks],
+=======
+                validation_split=0.15,
+                epochs=self.epochs[3],
+                callbacks=[self.callbacks_2],
+>>>>>>> Stashed changes
                 shuffle=True)
 
         # Determine when the training time ends
