@@ -51,15 +51,9 @@ class computer_vision_training(object):
 
         self.computer_vision_model = self.model.fit(self.X_train, self.Y_train,
                 batch_size=self.batch_size[2],
-<<<<<<< Updated upstream
                 validation_split=0.10,
-                epochs=self.epochs[2],
-                callbacks=[self.callbacks],
-=======
-                validation_split=0.15,
                 epochs=self.epochs[3],
                 callbacks=[self.callbacks_2],
->>>>>>> Stashed changes
                 shuffle=True)
 
         # Determine when the training time ends
